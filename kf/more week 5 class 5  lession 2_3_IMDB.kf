@@ -1,0 +1,236 @@
+{
+	"flow_name" : "more week 5 class 5  lession 2_3_IMDB",
+	"steps" : [
+		{
+			"class" : "weka.knowledgeflow.steps.Loader",
+			"properties" : {
+				"loader" : {
+					"type" : "loader",
+					"class" : "weka.core.converters.ArffLoader",
+					"filePath" : "C:/Users/bulle/wekafiles/packages/wekaDeeplearning4j/datasets/imdb-sentiment-2011.arff",
+					"useRelativePath" : false
+				},
+				"name" : "ArffLoader"
+			},
+			"connections" : {
+				"dataSet" : [
+					"ClassAssigner22"
+				]
+			},
+			"coordinates" : "110,166"
+		},
+		{
+			"class" : "weka.knowledgeflow.steps.Filter",
+			"properties" : {
+				"filter" : {
+					"type" : "optionHandler",
+					"class" : "weka.filters.unsupervised.attribute.ClassAssigner",
+					"options" : "-C last"
+				},
+				"name" : "ClassAssigner"
+			},
+			"connections" : {
+				"trainingSet" : [
+					"FilteredClassifier",
+					"RnnSequenceClassifier"
+				]
+			},
+			"coordinates" : "732,96"
+		},
+		{
+			"class" : "weka.knowledgeflow.steps.Filter",
+			"properties" : {
+				"filter" : {
+					"type" : "optionHandler",
+					"class" : "weka.filters.supervised.instance.Resample",
+					"options" : "-B 0.0 -S 1 -Z 0.9"
+				},
+				"name" : "Resample"
+			},
+			"connections" : {
+				"dataSet" : [
+					"TrainingSetMaker"
+				]
+			},
+			"coordinates" : "424,98"
+		},
+		{
+			"class" : "weka.knowledgeflow.steps.TrainingSetMaker",
+			"properties" : {
+				"name" : "TrainingSetMaker"
+			},
+			"connections" : {
+				"trainingSet" : [
+					"ClassAssigner"
+				]
+			},
+			"coordinates" : "580,96"
+		},
+		{
+			"class" : "weka.knowledgeflow.steps.Filter",
+			"properties" : {
+				"filter" : {
+					"type" : "optionHandler",
+					"class" : "weka.filters.supervised.instance.Resample",
+					"options" : "-B 0.0 -S 1 -Z 0.1"
+				},
+				"name" : "Resample2"
+			},
+			"connections" : {
+				"dataSet" : [
+					"TestSetMaker"
+				]
+			},
+			"coordinates" : "426,265"
+		},
+		{
+			"class" : "weka.knowledgeflow.steps.Filter",
+			"properties" : {
+				"filter" : {
+					"type" : "optionHandler",
+					"class" : "weka.filters.unsupervised.attribute.ClassAssigner",
+					"options" : "-C last"
+				},
+				"name" : "ClassAssigner2"
+			},
+			"connections" : {
+				"testSet" : [
+					"FilteredClassifier",
+					"RnnSequenceClassifier"
+				]
+			},
+			"coordinates" : "734,265"
+		},
+		{
+			"class" : "weka.knowledgeflow.steps.Classifier",
+			"properties" : {
+				"classifier" : {
+					"type" : "optionHandler",
+					"class" : "weka.classifiers.meta.FilteredClassifier",
+					"options" : "-F ‚"weka.filters.unsupervised.attribute.StringToWordVector -R first-last -W 800 -prune-rate -1.0 -C -N 0 -L -stemmer weka.core.stemmers.SnowballStemmer -stopwords-handler weka.core.stopwords.Rainbow -M 1 -tokenizer ‚‚‚"weka.core.tokenizers.WordTokenizer -delimiters ‚‚‚‚‚‚‚" ‚‚‚‚‚‚@@-@@r‚‚‚‚‚‚@@-@@n‚‚‚‚‚‚@@-@@t.,;:‚‚‚‚‚‚‚‚‚‚‚‚‚‚'‚‚‚‚‚‚‚‚‚‚‚‚‚‚‚"()?!‚‚‚‚‚‚‚"‚‚‚"‚" -S 1 -W weka.classifiers.bayes.NaiveBayesMultinomial"
+				},
+				"loadClassifierFileName" : "",
+				"name" : "FilteredClassifier",
+				"resetIncrementalClassifier" : false,
+				"updateIncrementalClassifier" : true
+			},
+			"connections" : {
+				"batchClassifier" : [
+					"ClassifierPerformanceEvaluator"
+				]
+			},
+			"coordinates" : "966,98"
+		},
+		{
+			"class" : "weka.knowledgeflow.steps.TestSetMaker",
+			"properties" : {
+				"name" : "TestSetMaker"
+			},
+			"connections" : {
+				"testSet" : [
+					"ClassAssigner2"
+				]
+			},
+			"coordinates" : "578,267"
+		},
+		{
+			"class" : "weka.knowledgeflow.steps.Note",
+			"properties" : {
+				"name" : "Note",
+				"noteText" : "0.9%"
+			},
+			"connections" : {
+			},
+			"coordinates" : "437,60"
+		},
+		{
+			"class" : "weka.knowledgeflow.steps.Note",
+			"properties" : {
+				"name" : "Note2",
+				"noteText" : "0.1%"
+			},
+			"connections" : {
+			},
+			"coordinates" : "450,240"
+		},
+		{
+			"class" : "weka.knowledgeflow.steps.TextViewer",
+			"properties" : {
+				"name" : "TextViewer"
+			},
+			"connections" : {
+			},
+			"coordinates" : "1364,165"
+		},
+		{
+			"class" : "weka.knowledgeflow.steps.ClassifierPerformanceEvaluator",
+			"properties" : {
+				"costMatrixString" : "",
+				"errorPlotPointSizeProportionalToMargin" : false,
+				"evaluateWithRespectToCosts" : false,
+				"evaluationMetricsToOutput" : "Correct,Incorrect,Kappa,Total cost,Average cost,KB relative,KB information,Correlation,Complexity 0,Complexity scheme,Complexity improvement,MAE,RMSE,RAE,RRSE,TP rate,FP rate,Precision,Recall,F-measure,MCC,ROC area,PRC area",
+				"name" : "ClassifierPerformanceEvaluator"
+			},
+			"connections" : {
+				"text" : [
+					"TextViewer"
+				]
+			},
+			"coordinates" : "1165,97"
+		},
+		{
+			"class" : "weka.knowledgeflow.steps.Filter",
+			"properties" : {
+				"filter" : {
+					"type" : "optionHandler",
+					"class" : "weka.filters.unsupervised.attribute.ClassAssigner",
+					"options" : "-C last"
+				},
+				"name" : "ClassAssigner22"
+			},
+			"connections" : {
+				"dataSet" : [
+					"Resample",
+					"Resample2"
+				]
+			},
+			"coordinates" : "222,166"
+		},
+		{
+			"class" : "weka.knowledgeflow.steps.Classifier",
+			"properties" : {
+				"classifier" : {
+					"type" : "optionHandler",
+					"class" : "weka.classifiers.functions.RnnSequenceClassifier",
+					"options" : "-S 1 -tBPTTBackward 20 -tBPTTForward 20 -cache-mode NONE -early-stopping ‚"weka.dl4j.earlystopping.EarlyStopping -maxEpochsNoImprovement 0 -valPercentage 0.0‚" -normalization ‚"Standardize training data‚" -iterator ‚"weka.dl4j.iterators.instance.sequence.text.rnn.RnnTextEmbeddingInstanceIterator -stopWords ‚‚‚"weka.dl4j.text.stopwords.Dl4jRainbow ‚‚‚" -tokenPreProcessor ‚‚‚"weka.dl4j.text.tokenization.preprocessor.CommonPreProcessor ‚‚‚" -tokenizerFactory ‚‚‚"weka.dl4j.text.tokenization.tokenizer.factory.DefaultTokenizerFactory ‚‚‚" -truncationLength 80 -wordVectorLocation C:‚‚‚‚Users‚‚@@-@@bulle‚‚‚‚wekafiles‚‚‚‚packages‚‚‚‚wekaDeeplearning4j‚‚‚‚datasets‚‚‚‚GoogleNews-vectors-negative300-SLIM.bin -bs 64‚" -iteration-listener ‚"weka.dl4j.listener.EpochListener -eval true -n 5‚" -layer ‚"weka.dl4j.layers.LSTM -gateActivation ‚‚‚"weka.dl4j.activations.ActivationSoftmax ‚‚‚" -nOut 64 -activation ‚‚‚"weka.dl4j.activations.ActivationTanH ‚‚‚" -name ‚‚‚"LSTM layer‚‚‚"‚" -layer ‚"weka.dl4j.layers.RnnOutputLayer -lossFn ‚‚‚"weka.dl4j.lossfunctions.LossMCXENT ‚‚‚" -nOut 0 -activation ‚‚‚"weka.dl4j.activations.ActivationTanH ‚‚‚" -name ‚‚‚"RnnOutput layer‚‚‚"‚" -logConfig ‚"weka.core.LogConfiguration -append true -dl4jLogLevel WARN -logFile C:‚‚‚‚Users‚‚‚‚Administrator‚‚‚‚wekafiles‚‚‚‚wekaDeeplearning4j.log -nd4jLogLevel INFO -wekaDl4jLogLevel INFO‚" -config ‚"weka.dl4j.NeuralNetConfiguration -biasInit 0.0 -biasUpdater ‚‚‚"weka.dl4j.updater.Sgd -lr 0.001 -lrSchedule ‚‚‚‚‚‚‚"weka.dl4j.schedules.ConstantSchedule -scheduleType EPOCH‚‚‚‚‚‚‚"‚‚‚" -dist ‚‚‚"weka.dl4j.distribution.Disabled ‚‚‚" -dropout ‚‚‚"weka.dl4j.dropout.Disabled ‚‚‚" -gradientNormalization ClipElementWiseAbsoluteValue -gradNormThreshold 1.0 -l1 1.0E-5 -l2 1.0E-5 -minimize -algorithm STOCHASTIC_GRADIENT_DESCENT -updater ‚‚‚"weka.dl4j.updater.Adam -beta1MeanDecay 0.9 -beta2VarDecay 0.999 -epsilon 1.0E-8 -lr 0.001 -lrSchedule ‚‚‚‚‚‚‚"weka.dl4j.schedules.ConstantSchedule -scheduleType EPOCH‚‚‚‚‚‚‚"‚‚‚" -weightInit XAVIER -weightNoise ‚‚‚"weka.dl4j.weightnoise.Disabled ‚‚‚"‚" -numEpochs 10 -queueSize 0 -zooModel ‚"weka.dl4j.zoo.CustomNet ‚""
+				},
+				"loadClassifierFileName" : "",
+				"name" : "RnnSequenceClassifier",
+				"resetIncrementalClassifier" : false,
+				"updateIncrementalClassifier" : true
+			},
+			"connections" : {
+				"batchClassifier" : [
+					"ClassifierPerformanceEvaluator2"
+				]
+			},
+			"coordinates" : "969,268"
+		},
+		{
+			"class" : "weka.knowledgeflow.steps.ClassifierPerformanceEvaluator",
+			"properties" : {
+				"costMatrixString" : "",
+				"errorPlotPointSizeProportionalToMargin" : false,
+				"evaluateWithRespectToCosts" : false,
+				"evaluationMetricsToOutput" : "Correct,Incorrect,Kappa,Total cost,Average cost,KB relative,KB information,Correlation,Complexity 0,Complexity scheme,Complexity improvement,MAE,RMSE,RAE,RRSE,TP rate,FP rate,Precision,Recall,F-measure,MCC,ROC area,PRC area",
+				"name" : "ClassifierPerformanceEvaluator2"
+			},
+			"connections" : {
+				"text" : [
+					"TextViewer"
+				]
+			},
+			"coordinates" : "1173,267"
+		}
+	]
+}

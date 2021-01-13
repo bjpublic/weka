@@ -1,0 +1,757 @@
+{
+	"flow_name" : "more week 4 class 4  lession 3",
+	"steps" : [
+		{
+			"class" : "weka.knowledgeflow.steps.Loader",
+			"properties" : {
+				"loader" : {
+					"type" : "loader",
+					"class" : "weka.core.converters.ArffLoader",
+					"filePath" : "D:/Weka-3-9/data/ReutersCorn-train-edited.arff",
+					"useRelativePath" : false
+				},
+				"name" : "ArffLoader"
+			},
+			"connections" : {
+				"dataSet" : [
+					"StringToWordVector",
+					"StringToWordVector2"
+				]
+			},
+			"coordinates" : "63,700"
+		},
+		{
+			"class" : "weka.knowledgeflow.steps.Filter",
+			"properties" : {
+				"filter" : {
+					"type" : "optionHandler",
+					"class" : "weka.filters.unsupervised.attribute.ClassAssigner",
+					"options" : "-C first"
+				},
+				"name" : "ClassAssigner"
+			},
+			"connections" : {
+				"dataSet" : [
+					"CrossValidationFoldMaker",
+					"TrainingSetMaker"
+				]
+			},
+			"coordinates" : "365,432"
+		},
+		{
+			"class" : "weka.knowledgeflow.steps.ClassifierPerformanceEvaluator",
+			"properties" : {
+				"costMatrixString" : "",
+				"errorPlotPointSizeProportionalToMargin" : false,
+				"evaluateWithRespectToCosts" : false,
+				"evaluationMetricsToOutput" : "Correct,Incorrect,Kappa,Total cost,Average cost,KB relative,KB information,Correlation,Complexity 0,Complexity scheme,Complexity improvement,MAE,RMSE,RAE,RRSE,TP rate,FP rate,Precision,Recall,F-measure,MCC,ROC area,PRC area",
+				"name" : "ClassifierPerformanceEvaluator"
+			},
+			"connections" : {
+				"text" : [
+					"TextViewer"
+				]
+			},
+			"coordinates" : "933,254"
+		},
+		{
+			"class" : "weka.knowledgeflow.steps.Note",
+			"properties" : {
+				"name" : "Note222",
+				"noteText" : "corn train-edited"
+			},
+			"connections" : {
+			},
+			"coordinates" : "23,649"
+		},
+		{
+			"class" : "weka.knowledgeflow.steps.Filter",
+			"properties" : {
+				"filter" : {
+					"type" : "optionHandler",
+					"class" : "weka.filters.unsupervised.attribute.StringToWordVector",
+					"options" : "-R first-last -W 1000 -prune-rate -1.0 -N 0 -stemmer weka.core.stemmers.NullStemmer -stopwords-handler weka.core.stopwords.Null -M 1 -tokenizer ‚"weka.core.tokenizers.WordTokenizer -delimiters ‚‚‚" ‚‚@@-@@r‚‚@@-@@n‚‚@@-@@t.,;:‚‚‚‚‚‚'‚‚‚‚‚‚‚"()?!‚‚‚"‚""
+				},
+				"name" : "StringToWordVector"
+			},
+			"connections" : {
+				"dataSet" : [
+					"ClassAssigner"
+				]
+			},
+			"coordinates" : "221,431"
+		},
+		{
+			"class" : "weka.knowledgeflow.steps.CrossValidationFoldMaker",
+			"properties" : {
+				"name" : "CrossValidationFoldMaker",
+				"numFolds" : "10",
+				"preserveOrder" : false,
+				"seed" : "1"
+			},
+			"connections" : {
+				"trainingSet" : [
+					"NaiveBayes",
+					"NaiveBayesMultinomial",
+					"AttributeSelectedClassifier",
+					"AttributeSelectedClassifier2"
+				],
+				"testSet" : [
+					"NaiveBayes",
+					"NaiveBayesMultinomial",
+					"AttributeSelectedClassifier",
+					"AttributeSelectedClassifier2"
+				]
+			},
+			"coordinates" : "506,433"
+		},
+		{
+			"class" : "weka.knowledgeflow.steps.Classifier",
+			"properties" : {
+				"classifier" : {
+					"type" : "optionHandler",
+					"class" : "weka.classifiers.bayes.NaiveBayes",
+					"options" : ""
+				},
+				"loadClassifierFileName" : "",
+				"name" : "NaiveBayes",
+				"resetIncrementalClassifier" : false,
+				"updateIncrementalClassifier" : true
+			},
+			"connections" : {
+				"batchClassifier" : [
+					"ClassifierPerformanceEvaluator"
+				]
+			},
+			"coordinates" : "698,252"
+		},
+		{
+			"class" : "weka.knowledgeflow.steps.ClassifierPerformanceEvaluator",
+			"properties" : {
+				"costMatrixString" : "",
+				"errorPlotPointSizeProportionalToMargin" : false,
+				"evaluateWithRespectToCosts" : false,
+				"evaluationMetricsToOutput" : "Correct,Incorrect,Kappa,Total cost,Average cost,KB relative,KB information,Correlation,Complexity 0,Complexity scheme,Complexity improvement,MAE,RMSE,RAE,RRSE,TP rate,FP rate,Precision,Recall,F-measure,MCC,ROC area,PRC area",
+				"name" : "ClassifierPerformanceEvaluator2"
+			},
+			"connections" : {
+				"text" : [
+					"TextViewer"
+				]
+			},
+			"coordinates" : "935,363"
+		},
+		{
+			"class" : "weka.knowledgeflow.steps.TextViewer",
+			"properties" : {
+				"name" : "TextViewer"
+			},
+			"connections" : {
+			},
+			"coordinates" : "1124,316"
+		},
+		{
+			"class" : "weka.knowledgeflow.steps.Note",
+			"properties" : {
+				"name" : "Note",
+				"noteText" : "classindex = first"
+			},
+			"connections" : {
+			},
+			"coordinates" : "352,527"
+		},
+		{
+			"class" : "weka.knowledgeflow.steps.ASEvaluator",
+			"properties" : {
+				"evaluator" : {
+					"type" : "optionHandler",
+					"class" : "weka.attributeSelection.CfsSubsetEval",
+					"options" : "-P 1 -E 1"
+				},
+				"name" : "CfsSubsetEval",
+				"treatXValFoldsSeparately" : false
+			},
+			"connections" : {
+				"text" : [
+					"TextViewer2"
+				],
+				"trainingSet" : [
+					"CrossValidationFoldMaker3"
+				]
+			},
+			"coordinates" : "366,214"
+		},
+		{
+			"class" : "weka.knowledgeflow.steps.ASSearchStrategy",
+			"properties" : {
+				"name" : "BestFirst",
+				"searchStrategy" : {
+					"type" : "optionHandler",
+					"class" : "weka.attributeSelection.BestFirst",
+					"options" : "-D 1 -N 5"
+				}
+			},
+			"connections" : {
+				"info" : [
+					"CfsSubsetEval"
+				]
+			},
+			"coordinates" : "236,332"
+		},
+		{
+			"class" : "weka.knowledgeflow.steps.TextViewer",
+			"properties" : {
+				"name" : "TextViewer2"
+			},
+			"connections" : {
+			},
+			"coordinates" : "227,214"
+		},
+		{
+			"class" : "weka.knowledgeflow.steps.TrainingSetMaker",
+			"properties" : {
+				"name" : "TrainingSetMaker"
+			},
+			"connections" : {
+				"trainingSet" : [
+					"CfsSubsetEval"
+				]
+			},
+			"coordinates" : "366,318"
+		},
+		{
+			"class" : "weka.knowledgeflow.steps.Note",
+			"properties" : {
+				"name" : "Note223",
+				"noteText" : "Q2‚nSelected attributes: 14‚n                     &lt‚n                     1986/87‚n                     48‚n                     International‚n                     July‚n                     Taiwan‚n                     agreed‚n                     corn‚n                     eight‚n                     grain‚n                     investment‚n                     maize‚n                     shipments‚n                     tax‚n"
+			},
+			"connections" : {
+			},
+			"coordinates" : "95,190"
+		},
+		{
+			"class" : "weka.knowledgeflow.steps.Note",
+			"properties" : {
+				"name" : "Note2232",
+				"noteText" : "Q1:‚nNB : 89.3179 %‚nNB_Multinominal : 91.5058 %"
+			},
+			"connections" : {
+			},
+			"coordinates" : "1206,328"
+		},
+		{
+			"class" : "weka.knowledgeflow.steps.Classifier",
+			"properties" : {
+				"classifier" : {
+					"type" : "optionHandler",
+					"class" : "weka.classifiers.bayes.NaiveBayesMultinomial",
+					"options" : ""
+				},
+				"loadClassifierFileName" : "",
+				"name" : "NaiveBayesMultinomial",
+				"resetIncrementalClassifier" : false,
+				"updateIncrementalClassifier" : true
+			},
+			"connections" : {
+				"batchClassifier" : [
+					"ClassifierPerformanceEvaluator2"
+				]
+			},
+			"coordinates" : "706,364"
+		},
+		{
+			"class" : "weka.knowledgeflow.steps.Classifier",
+			"properties" : {
+				"classifier" : {
+					"type" : "optionHandler",
+					"class" : "weka.classifiers.meta.AttributeSelectedClassifier",
+					"options" : "-E ‚"weka.attributeSelection.CfsSubsetEval -P 1 -E 1‚" -S ‚"weka.attributeSelection.BestFirst -D 1 -N 5‚" -W weka.classifiers.bayes.NaiveBayes"
+				},
+				"loadClassifierFileName" : "",
+				"name" : "AttributeSelectedClassifier",
+				"resetIncrementalClassifier" : false,
+				"updateIncrementalClassifier" : true
+			},
+			"connections" : {
+				"batchClassifier" : [
+					"ClassifierPerformanceEvaluator22"
+				]
+			},
+			"coordinates" : "710,485"
+		},
+		{
+			"class" : "weka.knowledgeflow.steps.ClassifierPerformanceEvaluator",
+			"properties" : {
+				"costMatrixString" : "",
+				"errorPlotPointSizeProportionalToMargin" : false,
+				"evaluateWithRespectToCosts" : false,
+				"evaluationMetricsToOutput" : "Correct,Incorrect,Kappa,Total cost,Average cost,KB relative,KB information,Correlation,Complexity 0,Complexity scheme,Complexity improvement,MAE,RMSE,RAE,RRSE,TP rate,FP rate,Precision,Recall,F-measure,MCC,ROC area,PRC area",
+				"name" : "ClassifierPerformanceEvaluator22"
+			},
+			"connections" : {
+				"text" : [
+					"TextViewer3"
+				]
+			},
+			"coordinates" : "944,486"
+		},
+		{
+			"class" : "weka.knowledgeflow.steps.TextViewer",
+			"properties" : {
+				"name" : "TextViewer3"
+			},
+			"connections" : {
+			},
+			"coordinates" : "1127,546"
+		},
+		{
+			"class" : "weka.knowledgeflow.steps.Classifier",
+			"properties" : {
+				"classifier" : {
+					"type" : "optionHandler",
+					"class" : "weka.classifiers.meta.AttributeSelectedClassifier",
+					"options" : "-E ‚"weka.attributeSelection.CfsSubsetEval -P 1 -E 1‚" -S ‚"weka.attributeSelection.BestFirst -D 1 -N 5‚" -W weka.classifiers.bayes.NaiveBayesMultinomial"
+				},
+				"loadClassifierFileName" : "",
+				"name" : "AttributeSelectedClassifier2",
+				"resetIncrementalClassifier" : false,
+				"updateIncrementalClassifier" : true
+			},
+			"connections" : {
+				"batchClassifier" : [
+					"ClassifierPerformanceEvaluator222"
+				]
+			},
+			"coordinates" : "711,608"
+		},
+		{
+			"class" : "weka.knowledgeflow.steps.ClassifierPerformanceEvaluator",
+			"properties" : {
+				"costMatrixString" : "",
+				"errorPlotPointSizeProportionalToMargin" : false,
+				"evaluateWithRespectToCosts" : false,
+				"evaluationMetricsToOutput" : "Correct,Incorrect,Kappa,Total cost,Average cost,KB relative,KB information,Correlation,Complexity 0,Complexity scheme,Complexity improvement,MAE,RMSE,RAE,RRSE,TP rate,FP rate,Precision,Recall,F-measure,MCC,ROC area,PRC area",
+				"name" : "ClassifierPerformanceEvaluator222"
+			},
+			"connections" : {
+				"text" : [
+					"TextViewer3"
+				]
+			},
+			"coordinates" : "953,610"
+		},
+		{
+			"class" : "weka.knowledgeflow.steps.Note",
+			"properties" : {
+				"name" : "Note22322",
+				"noteText" : "Q3 : ‚nNB : 97.426  %‚nNB_Multinominal : 99.1634 %"
+			},
+			"connections" : {
+			},
+			"coordinates" : "1208,501"
+		},
+		{
+			"class" : "weka.knowledgeflow.steps.Note",
+			"properties" : {
+				"name" : "Note22323",
+				"noteText" : "classifier : NaiveBayesMultinominal"
+			},
+			"connections" : {
+			},
+			"coordinates" : "644,699"
+		},
+		{
+			"class" : "weka.knowledgeflow.steps.Note",
+			"properties" : {
+				"name" : "Note223232",
+				"noteText" : "classifier : NaiveBayes"
+			},
+			"connections" : {
+			},
+			"coordinates" : "691,575"
+		},
+		{
+			"class" : "weka.knowledgeflow.steps.Note",
+			"properties" : {
+				"name" : "Note223222",
+				"noteText" : "Q4 : NB_Multinominal : 99.1634 %‚n=== Confusion Matrix ===‚n       a     b   <-- classified as‚n 1506    3 |    a = 0‚n     10   35 |    b = 1"
+			},
+			"connections" : {
+			},
+			"coordinates" : "1206,600"
+		},
+		{
+			"class" : "weka.knowledgeflow.steps.Filter",
+			"properties" : {
+				"filter" : {
+					"type" : "optionHandler",
+					"class" : "weka.filters.unsupervised.attribute.ClassAssigner",
+					"options" : "-C first"
+				},
+				"name" : "ClassAssigner2"
+			},
+			"connections" : {
+				"dataSet" : [
+					"CrossValidationFoldMaker2",
+					"TrainingSetMaker3"
+				]
+			},
+			"coordinates" : "388,859"
+		},
+		{
+			"class" : "weka.knowledgeflow.steps.Filter",
+			"properties" : {
+				"filter" : {
+					"type" : "optionHandler",
+					"class" : "weka.filters.unsupervised.attribute.StringToWordVector",
+					"options" : "-R first-last -W 1000 -prune-rate -1.0 -N 0 -L -stemmer weka.core.stemmers.NullStemmer -stopwords-handler weka.core.stopwords.Null -M 1 -tokenizer ‚"weka.core.tokenizers.WordTokenizer -delimiters ‚‚‚" ‚‚@@-@@r‚‚@@-@@n‚‚@@-@@t.,;:‚‚‚‚‚‚'‚‚‚‚‚‚‚"()?!‚‚‚"‚""
+				},
+				"name" : "StringToWordVector2"
+			},
+			"connections" : {
+				"dataSet" : [
+					"ClassAssigner2"
+				]
+			},
+			"coordinates" : "244,858"
+		},
+		{
+			"class" : "weka.knowledgeflow.steps.CrossValidationFoldMaker",
+			"properties" : {
+				"name" : "CrossValidationFoldMaker2",
+				"numFolds" : "10",
+				"preserveOrder" : false,
+				"seed" : "1"
+			},
+			"connections" : {
+				"trainingSet" : [
+					"AttributeSelectedClassifier3",
+					"AttributeSelectedClassifier22"
+				],
+				"testSet" : [
+					"AttributeSelectedClassifier3",
+					"AttributeSelectedClassifier22"
+				]
+			},
+			"coordinates" : "529,860"
+		},
+		{
+			"class" : "weka.knowledgeflow.steps.Note",
+			"properties" : {
+				"name" : "Note223233",
+				"noteText" : "classindex = first"
+			},
+			"connections" : {
+			},
+			"coordinates" : "387,826"
+		},
+		{
+			"class" : "weka.knowledgeflow.steps.Classifier",
+			"properties" : {
+				"classifier" : {
+					"type" : "optionHandler",
+					"class" : "weka.classifiers.meta.AttributeSelectedClassifier",
+					"options" : "-E ‚"weka.attributeSelection.CfsSubsetEval -P 1 -E 1‚" -S ‚"weka.attributeSelection.BestFirst -D 1 -N 5‚" -W weka.classifiers.bayes.NaiveBayes"
+				},
+				"loadClassifierFileName" : "",
+				"name" : "AttributeSelectedClassifier3",
+				"resetIncrementalClassifier" : false,
+				"updateIncrementalClassifier" : true
+			},
+			"connections" : {
+				"batchClassifier" : [
+					"ClassifierPerformanceEvaluator223"
+				]
+			},
+			"coordinates" : "736,794"
+		},
+		{
+			"class" : "weka.knowledgeflow.steps.ClassifierPerformanceEvaluator",
+			"properties" : {
+				"costMatrixString" : "",
+				"errorPlotPointSizeProportionalToMargin" : false,
+				"evaluateWithRespectToCosts" : false,
+				"evaluationMetricsToOutput" : "Correct,Incorrect,Kappa,Total cost,Average cost,KB relative,KB information,Correlation,Complexity 0,Complexity scheme,Complexity improvement,MAE,RMSE,RAE,RRSE,TP rate,FP rate,Precision,Recall,F-measure,MCC,ROC area,PRC area",
+				"name" : "ClassifierPerformanceEvaluator223"
+			},
+			"connections" : {
+				"text" : [
+					"TextViewer32"
+				]
+			},
+			"coordinates" : "971,795"
+		},
+		{
+			"class" : "weka.knowledgeflow.steps.TextViewer",
+			"properties" : {
+				"name" : "TextViewer32"
+			},
+			"connections" : {
+			},
+			"coordinates" : "1155,854"
+		},
+		{
+			"class" : "weka.knowledgeflow.steps.Classifier",
+			"properties" : {
+				"classifier" : {
+					"type" : "optionHandler",
+					"class" : "weka.classifiers.meta.AttributeSelectedClassifier",
+					"options" : "-E ‚"weka.attributeSelection.CfsSubsetEval -P 1 -E 1‚" -S ‚"weka.attributeSelection.BestFirst -D 1 -N 5‚" -W weka.classifiers.bayes.NaiveBayesMultinomial"
+				},
+				"loadClassifierFileName" : "",
+				"name" : "AttributeSelectedClassifier22",
+				"resetIncrementalClassifier" : false,
+				"updateIncrementalClassifier" : true
+			},
+			"connections" : {
+				"batchClassifier" : [
+					"ClassifierPerformanceEvaluator2222"
+				]
+			},
+			"coordinates" : "738,917"
+		},
+		{
+			"class" : "weka.knowledgeflow.steps.ClassifierPerformanceEvaluator",
+			"properties" : {
+				"costMatrixString" : "",
+				"errorPlotPointSizeProportionalToMargin" : false,
+				"evaluateWithRespectToCosts" : false,
+				"evaluationMetricsToOutput" : "Correct,Incorrect,Kappa,Total cost,Average cost,KB relative,KB information,Correlation,Complexity 0,Complexity scheme,Complexity improvement,MAE,RMSE,RAE,RRSE,TP rate,FP rate,Precision,Recall,F-measure,MCC,ROC area,PRC area",
+				"name" : "ClassifierPerformanceEvaluator2222"
+			},
+			"connections" : {
+				"text" : [
+					"TextViewer32"
+				]
+			},
+			"coordinates" : "980,919"
+		},
+		{
+			"class" : "weka.knowledgeflow.steps.Note",
+			"properties" : {
+				"name" : "Note223223",
+				"noteText" : "Q7 : ‚nNB : 97.426  %‚nNB_Multinominal : 99.2278 %"
+			},
+			"connections" : {
+			},
+			"coordinates" : "1208,806"
+		},
+		{
+			"class" : "weka.knowledgeflow.steps.Note",
+			"properties" : {
+				"name" : "Note223234",
+				"noteText" : "classifier : NaiveBayesMultinominal"
+			},
+			"connections" : {
+			},
+			"coordinates" : "671,1008"
+		},
+		{
+			"class" : "weka.knowledgeflow.steps.Note",
+			"properties" : {
+				"name" : "Note2232322",
+				"noteText" : "classifier : NaiveBayes"
+			},
+			"connections" : {
+			},
+			"coordinates" : "718,884"
+		},
+		{
+			"class" : "weka.knowledgeflow.steps.Note",
+			"properties" : {
+				"name" : "Note2232222",
+				"noteText" : "Q8 : NB_Multinominal : 99.2278 %‚n=== Confusion Matrix ===‚n    a    b   <-- classified as‚n 1499   10 |    a = 0‚n    2   43 |    b = 1"
+			},
+			"connections" : {
+			},
+			"coordinates" : "1204,946"
+		},
+		{
+			"class" : "weka.knowledgeflow.steps.Note",
+			"properties" : {
+				"name" : "Note2232332",
+				"noteText" : "lowCaseTokens = true"
+			},
+			"connections" : {
+			},
+			"coordinates" : "238,828"
+		},
+		{
+			"class" : "weka.knowledgeflow.steps.ASEvaluator",
+			"properties" : {
+				"evaluator" : {
+					"type" : "optionHandler",
+					"class" : "weka.attributeSelection.CfsSubsetEval",
+					"options" : "-P 1 -E 1"
+				},
+				"name" : "CfsSubsetEval2",
+				"treatXValFoldsSeparately" : false
+			},
+			"connections" : {
+				"text" : [
+					"TextViewer22"
+				]
+			},
+			"coordinates" : "391,1080"
+		},
+		{
+			"class" : "weka.knowledgeflow.steps.ASSearchStrategy",
+			"properties" : {
+				"name" : "BestFirst2",
+				"searchStrategy" : {
+					"type" : "optionHandler",
+					"class" : "weka.attributeSelection.BestFirst",
+					"options" : "-D 1 -N 5"
+				}
+			},
+			"connections" : {
+				"info" : [
+					"CfsSubsetEval2"
+				]
+			},
+			"coordinates" : "534,1081"
+		},
+		{
+			"class" : "weka.knowledgeflow.steps.TextViewer",
+			"properties" : {
+				"name" : "TextViewer22"
+			},
+			"connections" : {
+			},
+			"coordinates" : "242,1080"
+		},
+		{
+			"class" : "weka.knowledgeflow.steps.TrainingSetMaker",
+			"properties" : {
+				"name" : "TrainingSetMaker3"
+			},
+			"connections" : {
+				"trainingSet" : [
+					"CfsSubsetEval2"
+				]
+			},
+			"coordinates" : "389,968"
+		},
+		{
+			"class" : "weka.knowledgeflow.steps.Note",
+			"properties" : {
+				"name" : "Note2232333",
+				"noteText" : "Q2‚nSelected attributes: 16‚n                     &lt‚n                     1986/87‚n                     40‚n                     assets‚n                     certificates‚n                     corn‚n                     decision‚n                     each‚n                     eight‚n                     grain‚n                     investment‚n                     july‚n                     maize‚n                     taiwan‚n                     tax‚n                     three‚n"
+			},
+			"connections" : {
+			},
+			"coordinates" : "99,897"
+		},
+		{
+			"class" : "weka.knowledgeflow.steps.CrossValidationFoldMaker",
+			"properties" : {
+				"name" : "CrossValidationFoldMaker3",
+				"numFolds" : "10",
+				"preserveOrder" : false,
+				"seed" : "1"
+			},
+			"connections" : {
+				"trainingSet" : [
+					"NaiveBayes2",
+					"NaiveBayesMultinomial2"
+				],
+				"testSet" : [
+					"NaiveBayes2",
+					"NaiveBayesMultinomial2"
+				]
+			},
+			"coordinates" : "503,94"
+		},
+		{
+			"class" : "weka.knowledgeflow.steps.ClassifierPerformanceEvaluator",
+			"properties" : {
+				"costMatrixString" : "",
+				"errorPlotPointSizeProportionalToMargin" : false,
+				"evaluateWithRespectToCosts" : false,
+				"evaluationMetricsToOutput" : "Correct,Incorrect,Kappa,Total cost,Average cost,KB relative,KB information,Correlation,Complexity 0,Complexity scheme,Complexity improvement,MAE,RMSE,RAE,RRSE,TP rate,FP rate,Precision,Recall,F-measure,MCC,ROC area,PRC area",
+				"name" : "ClassifierPerformanceEvaluator2223"
+			},
+			"connections" : {
+				"text" : [
+					"TextViewer332"
+				]
+			},
+			"coordinates" : "922,32"
+		},
+		{
+			"class" : "weka.knowledgeflow.steps.Classifier",
+			"properties" : {
+				"classifier" : {
+					"type" : "optionHandler",
+					"class" : "weka.classifiers.bayes.NaiveBayes",
+					"options" : ""
+				},
+				"loadClassifierFileName" : "",
+				"name" : "NaiveBayes2",
+				"resetIncrementalClassifier" : false,
+				"updateIncrementalClassifier" : true
+			},
+			"connections" : {
+				"batchClassifier" : [
+					"ClassifierPerformanceEvaluator2223"
+				]
+			},
+			"coordinates" : "687,30"
+		},
+		{
+			"class" : "weka.knowledgeflow.steps.Note",
+			"properties" : {
+				"name" : "Note2232334",
+				"noteText" : "NB :97.619  %‚nNB_Multinominal : 99.1634 %"
+			},
+			"connections" : {
+			},
+			"coordinates" : "1205,106"
+		},
+		{
+			"class" : "weka.knowledgeflow.steps.ClassifierPerformanceEvaluator",
+			"properties" : {
+				"costMatrixString" : "",
+				"errorPlotPointSizeProportionalToMargin" : false,
+				"evaluateWithRespectToCosts" : false,
+				"evaluationMetricsToOutput" : "Correct,Incorrect,Kappa,Total cost,Average cost,KB relative,KB information,Correlation,Complexity 0,Complexity scheme,Complexity improvement,MAE,RMSE,RAE,RRSE,TP rate,FP rate,Precision,Recall,F-measure,MCC,ROC area,PRC area",
+				"name" : "ClassifierPerformanceEvaluator22232"
+			},
+			"connections" : {
+				"text" : [
+					"TextViewer332"
+				]
+			},
+			"coordinates" : "922,143"
+		},
+		{
+			"class" : "weka.knowledgeflow.steps.TextViewer",
+			"properties" : {
+				"name" : "TextViewer332"
+			},
+			"connections" : {
+			},
+			"coordinates" : "1126,88"
+		},
+		{
+			"class" : "weka.knowledgeflow.steps.Classifier",
+			"properties" : {
+				"classifier" : {
+					"type" : "optionHandler",
+					"class" : "weka.classifiers.bayes.NaiveBayesMultinomial",
+					"options" : ""
+				},
+				"loadClassifierFileName" : "",
+				"name" : "NaiveBayesMultinomial2",
+				"resetIncrementalClassifier" : false,
+				"updateIncrementalClassifier" : true
+			},
+			"connections" : {
+				"batchClassifier" : [
+					"ClassifierPerformanceEvaluator22232"
+				]
+			},
+			"coordinates" : "693,139"
+		}
+	]
+}

@@ -1,0 +1,214 @@
+{
+	"flow_name" : "base week 3 class 3 lession 3",
+	"steps" : [
+		{
+			"class" : "weka.knowledgeflow.steps.Filter",
+			"properties" : {
+				"filter" : {
+					"type" : "optionHandler",
+					"class" : "weka.filters.unsupervised.attribute.ClassAssigner",
+					"options" : "-C last"
+				},
+				"name" : "ClassAssigner2"
+			},
+			"connections" : {
+				"dataSet" : [
+					"CrossValidationFoldMaker"
+				]
+			},
+			"coordinates" : "267,158"
+		},
+		{
+			"class" : "weka.knowledgeflow.steps.ClassifierPerformanceEvaluator",
+			"properties" : {
+				"costMatrixString" : "",
+				"errorPlotPointSizeProportionalToMargin" : false,
+				"evaluateWithRespectToCosts" : false,
+				"evaluationMetricsToOutput" : "Correct,Incorrect,Kappa,Total cost,Average cost,KB relative,KB information,Correlation,Complexity 0,Complexity scheme,Complexity improvement,MAE,RMSE,RAE,RRSE,TP rate,FP rate,Precision,Recall,F-measure,MCC,ROC area,PRC area",
+				"name" : "ClassifierPerformanceEvaluator2"
+			},
+			"connections" : {
+				"text" : [
+					"TextViewer2"
+				]
+			},
+			"coordinates" : "672,46"
+		},
+		{
+			"class" : "weka.knowledgeflow.steps.TextViewer",
+			"properties" : {
+				"name" : "TextViewer2"
+			},
+			"connections" : {
+			},
+			"coordinates" : "826,42"
+		},
+		{
+			"class" : "weka.knowledgeflow.steps.Loader",
+			"properties" : {
+				"loader" : {
+					"type" : "loader",
+					"class" : "weka.core.converters.ArffLoader",
+					"filePath" : "D:/Weka-3-9/data/weather.numeric.arff",
+					"useRelativePath" : false
+				},
+				"name" : "weather.num"
+			},
+			"connections" : {
+				"dataSet" : [
+					"ClassAssigner2"
+				]
+			},
+			"coordinates" : "136,156"
+		},
+		{
+			"class" : "weka.knowledgeflow.steps.ClassifierPerformanceEvaluator",
+			"properties" : {
+				"costMatrixString" : "",
+				"errorPlotPointSizeProportionalToMargin" : false,
+				"evaluateWithRespectToCosts" : false,
+				"evaluationMetricsToOutput" : "Correct,Incorrect,Kappa,Total cost,Average cost,KB relative,KB information,Correlation,Complexity 0,Complexity scheme,Complexity improvement,MAE,RMSE,RAE,RRSE,TP rate,FP rate,Precision,Recall,F-measure,MCC,ROC area,PRC area",
+				"name" : "ClassifierPerformanceEvaluator23"
+			},
+			"connections" : {
+				"text" : [
+					"TextViewer23"
+				]
+			},
+			"coordinates" : "679,264"
+		},
+		{
+			"class" : "weka.knowledgeflow.steps.TextViewer",
+			"properties" : {
+				"name" : "TextViewer23"
+			},
+			"connections" : {
+			},
+			"coordinates" : "835,265"
+		},
+		{
+			"class" : "weka.knowledgeflow.steps.Note",
+			"properties" : {
+				"name" : "Note23",
+				"noteText" : "57.1429 %"
+			},
+			"connections" : {
+			},
+			"coordinates" : "918,69"
+		},
+		{
+			"class" : "weka.knowledgeflow.steps.TextViewer",
+			"properties" : {
+				"name" : "TextViewer223"
+			},
+			"connections" : {
+			},
+			"coordinates" : "908,146"
+		},
+		{
+			"class" : "weka.knowledgeflow.steps.Note",
+			"properties" : {
+				"name" : "Note234",
+				"noteText" : "50      %"
+			},
+			"connections" : {
+			},
+			"coordinates" : "924,293"
+		},
+		{
+			"class" : "weka.knowledgeflow.steps.TextViewer",
+			"properties" : {
+				"name" : "TextViewer232"
+			},
+			"connections" : {
+			},
+			"coordinates" : "682,395"
+		},
+		{
+			"class" : "weka.knowledgeflow.steps.Note",
+			"properties" : {
+				"name" : "Note23433",
+				"noteText" : "               Class‚nAttribute        yes    no‚n               (0.6) (0.4)‚n===========================‚noutlook‚n  sunny           3.0   4.0‚n  overcast        5.0   1.0‚n  rainy           3.0   3.0‚n  [total]        11.0   8.0‚n‚ntemperature‚n  hot             3.0   3.0‚n  mild            5.0   3.0‚n  cool            3.0   2.0‚n  [total]        11.0   8.0‚n‚nhumidity‚n  high            4.0   5.0‚n  normal          6.0   2.0‚n  [total]        10.0   7.0‚n‚nwindy‚n  TRUE            4.0   4.0‚n  FALSE           6.0   3.0‚n  [total]        10.0   7.0"
+			},
+			"connections" : {
+			},
+			"coordinates" : "1018,65"
+		},
+		{
+			"class" : "weka.knowledgeflow.steps.Classifier",
+			"properties" : {
+				"classifier" : {
+					"type" : "optionHandler",
+					"class" : "weka.classifiers.bayes.NaiveBayes",
+					"options" : ""
+				},
+				"loadClassifierFileName" : "",
+				"name" : "NaiveBayes",
+				"resetIncrementalClassifier" : false,
+				"updateIncrementalClassifier" : true
+			},
+			"connections" : {
+				"batchClassifier" : [
+					"ClassifierPerformanceEvaluator2"
+				],
+				"text" : [
+					"TextViewer223"
+				]
+			},
+			"coordinates" : "533,47"
+		},
+		{
+			"class" : "weka.knowledgeflow.steps.Classifier",
+			"properties" : {
+				"classifier" : {
+					"type" : "optionHandler",
+					"class" : "weka.classifiers.trees.J48",
+					"options" : "-C 0.25 -M 2"
+				},
+				"loadClassifierFileName" : "",
+				"name" : "J48",
+				"resetIncrementalClassifier" : false,
+				"updateIncrementalClassifier" : true
+			},
+			"connections" : {
+				"text" : [
+					"TextViewer232"
+				],
+				"batchClassifier" : [
+					"ClassifierPerformanceEvaluator23"
+				]
+			},
+			"coordinates" : "525,265"
+		},
+		{
+			"class" : "weka.knowledgeflow.steps.CrossValidationFoldMaker",
+			"properties" : {
+				"name" : "CrossValidationFoldMaker",
+				"numFolds" : "10",
+				"preserveOrder" : false,
+				"seed" : "1"
+			},
+			"connections" : {
+				"trainingSet" : [
+					"NaiveBayes",
+					"J48"
+				],
+				"testSet" : [
+					"NaiveBayes",
+					"J48"
+				]
+			},
+			"coordinates" : "384,161"
+		},
+		{
+			"class" : "weka.knowledgeflow.steps.Note",
+			"properties" : {
+				"name" : "Note23434",
+				"noteText" : "J48 pruned tree‚n------------------‚n‚noutlook = sunny‚n.......humidity = high: no (3.0)‚n.......humidity = normal: yes (2.0)‚noutlook = overcast: yes (4.0)‚noutlook = rainy‚n.......windy = TRUE: no (2.0)‚n.......windy = FALSE: yes (2.0)‚n‚nNumber of Leaves  : ‚t5‚n‚nSize of the tree : ‚t8‚n"
+			},
+			"connections" : {
+			},
+			"coordinates" : "777,367"
+		}
+	]
+}

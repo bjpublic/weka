@@ -1,0 +1,591 @@
+{
+	"flow_name" : "more week 3 class 3  lession 5",
+	"steps" : [
+		{
+			"class" : "weka.knowledgeflow.steps.Loader",
+			"properties" : {
+				"loader" : {
+					"type" : "loader",
+					"class" : "weka.core.converters.ArffLoader",
+					"filePath" : "D:/Weka-3-9/data/iris.arff",
+					"useRelativePath" : false
+				},
+				"name" : "ArffLoader"
+			},
+			"connections" : {
+				"dataSet" : [
+					"TrainingSetMaker",
+					"Remove"
+				]
+			},
+			"coordinates" : "51,170"
+		},
+		{
+			"class" : "weka.knowledgeflow.steps.TrainingSetMaker",
+			"properties" : {
+				"name" : "TrainingSetMaker"
+			},
+			"connections" : {
+				"trainingSet" : [
+					"SimpleKMeans",
+					"SimpleKMeans2"
+				]
+			},
+			"coordinates" : "229,33"
+		},
+		{
+			"class" : "weka.knowledgeflow.steps.Clusterer",
+			"properties" : {
+				"clusterer" : {
+					"type" : "optionHandler",
+					"class" : "weka.clusterers.SimpleKMeans",
+					"options" : "-init 0 -max-candidates 100 -periodic-pruning 10000 -min-density 2.0 -t1 -1.25 -t2 -1.0 -N 2 -A ‚"weka.core.EuclideanDistance -R first-last‚" -I 500 -num-slots 1 -S 10"
+				},
+				"loadClustererFileName" : "",
+				"name" : "SimpleKMeans"
+			},
+			"connections" : {
+				"batchClusterer" : [
+					"ClustererPerformanceEvaluator"
+				]
+			},
+			"coordinates" : "433,33"
+		},
+		{
+			"class" : "weka.knowledgeflow.steps.Clusterer",
+			"properties" : {
+				"clusterer" : {
+					"type" : "optionHandler",
+					"class" : "weka.clusterers.SimpleKMeans",
+					"options" : "-init 0 -max-candidates 100 -periodic-pruning 10000 -min-density 2.0 -t1 -1.25 -t2 -1.0 -N 3 -A ‚"weka.core.EuclideanDistance -R first-last‚" -I 500 -num-slots 1 -S 10"
+				},
+				"loadClustererFileName" : "",
+				"name" : "SimpleKMeans2"
+			},
+			"connections" : {
+				"batchClusterer" : [
+					"ClustererPerformanceEvaluator2"
+				]
+			},
+			"coordinates" : "435,162"
+		},
+		{
+			"class" : "weka.knowledgeflow.steps.ClustererPerformanceEvaluator",
+			"properties" : {
+				"name" : "ClustererPerformanceEvaluator"
+			},
+			"connections" : {
+				"text" : [
+					"TextViewer"
+				]
+			},
+			"coordinates" : "657,28"
+		},
+		{
+			"class" : "weka.knowledgeflow.steps.ClustererPerformanceEvaluator",
+			"properties" : {
+				"name" : "ClustererPerformanceEvaluator2"
+			},
+			"connections" : {
+				"text" : [
+					"TextViewer2"
+				]
+			},
+			"coordinates" : "657,164"
+		},
+		{
+			"class" : "weka.knowledgeflow.steps.TextViewer",
+			"properties" : {
+				"name" : "TextViewer"
+			},
+			"connections" : {
+			},
+			"coordinates" : "868,27"
+		},
+		{
+			"class" : "weka.knowledgeflow.steps.TextViewer",
+			"properties" : {
+				"name" : "TextViewer2"
+			},
+			"connections" : {
+			},
+			"coordinates" : "876,163"
+		},
+		{
+			"class" : "weka.knowledgeflow.steps.Clusterer",
+			"properties" : {
+				"clusterer" : {
+					"type" : "optionHandler",
+					"class" : "weka.clusterers.SimpleKMeans",
+					"options" : "-init 0 -max-candidates 100 -periodic-pruning 10000 -min-density 2.0 -t1 -1.25 -t2 -1.0 -N 3 -A ‚"weka.core.EuclideanDistance -R first-last‚" -I 500 -num-slots 1 -S 10"
+				},
+				"loadClustererFileName" : "",
+				"name" : "SimpleKMeans3"
+			},
+			"connections" : {
+				"batchClusterer" : [
+					"ClustererPerformanceEvaluator3"
+				]
+			},
+			"coordinates" : "442,289"
+		},
+		{
+			"class" : "weka.knowledgeflow.steps.ClustererPerformanceEvaluator",
+			"properties" : {
+				"name" : "ClustererPerformanceEvaluator3"
+			},
+			"connections" : {
+				"text" : [
+					"TextViewer3"
+				]
+			},
+			"coordinates" : "669,292"
+		},
+		{
+			"class" : "weka.knowledgeflow.steps.TextViewer",
+			"properties" : {
+				"name" : "TextViewer3"
+			},
+			"connections" : {
+			},
+			"coordinates" : "880,292"
+		},
+		{
+			"class" : "weka.knowledgeflow.steps.Filter",
+			"properties" : {
+				"filter" : {
+					"type" : "optionHandler",
+					"class" : "weka.filters.unsupervised.attribute.Remove",
+					"options" : "-R last"
+				},
+				"name" : "Remove"
+			},
+			"connections" : {
+				"dataSet" : [
+					"TrainingSetMaker2"
+				]
+			},
+			"coordinates" : "52,364"
+		},
+		{
+			"class" : "weka.knowledgeflow.steps.TrainingSetMaker",
+			"properties" : {
+				"name" : "TrainingSetMaker2"
+			},
+			"connections" : {
+				"trainingSet" : [
+					"SimpleKMeans3",
+					"XMeans",
+					"XMeans2",
+					"EM",
+					"EM2",
+					"Cobweb",
+					"Cobweb2"
+				]
+			},
+			"coordinates" : "188,367"
+		},
+		{
+			"class" : "weka.knowledgeflow.steps.Clusterer",
+			"properties" : {
+				"clusterer" : {
+					"type" : "optionHandler",
+					"class" : "weka.clusterers.XMeans",
+					"options" : "-I 1 -M 1000 -J 1000 -L 2 -H 4 -B 1.0 -C 0.5 -D ‚"weka.core.EuclideanDistance -R first-last‚" -S 10"
+				},
+				"loadClustererFileName" : "",
+				"name" : "XMeans"
+			},
+			"connections" : {
+				"batchClusterer" : [
+					"ClustererPerformanceEvaluator32"
+				]
+			},
+			"coordinates" : "439,404"
+		},
+		{
+			"class" : "weka.knowledgeflow.steps.Clusterer",
+			"properties" : {
+				"clusterer" : {
+					"type" : "optionHandler",
+					"class" : "weka.clusterers.XMeans",
+					"options" : "-I 1 -M 1000 -J 1000 -L 3 -H 3 -B 1.0 -C 0.5 -D ‚"weka.core.EuclideanDistance -R first-last‚" -S 10"
+				},
+				"loadClustererFileName" : "",
+				"name" : "XMeans2"
+			},
+			"connections" : {
+				"batchClusterer" : [
+					"ClustererPerformanceEvaluator322"
+				]
+			},
+			"coordinates" : "440,526"
+		},
+		{
+			"class" : "weka.knowledgeflow.steps.ClustererPerformanceEvaluator",
+			"properties" : {
+				"name" : "ClustererPerformanceEvaluator32"
+			},
+			"connections" : {
+				"text" : [
+					"TextViewer32"
+				]
+			},
+			"coordinates" : "660,402"
+		},
+		{
+			"class" : "weka.knowledgeflow.steps.TextViewer",
+			"properties" : {
+				"name" : "TextViewer32"
+			},
+			"connections" : {
+			},
+			"coordinates" : "871,402"
+		},
+		{
+			"class" : "weka.knowledgeflow.steps.ClustererPerformanceEvaluator",
+			"properties" : {
+				"name" : "ClustererPerformanceEvaluator322"
+			},
+			"connections" : {
+				"text" : [
+					"TextViewer322"
+				]
+			},
+			"coordinates" : "663,527"
+		},
+		{
+			"class" : "weka.knowledgeflow.steps.TextViewer",
+			"properties" : {
+				"name" : "TextViewer322"
+			},
+			"connections" : {
+			},
+			"coordinates" : "874,528"
+		},
+		{
+			"class" : "weka.knowledgeflow.steps.Note",
+			"properties" : {
+				"name" : "Note",
+				"noteText" : "attributeIndices : last"
+			},
+			"connections" : {
+			},
+			"coordinates" : "26,457"
+		},
+		{
+			"class" : "weka.knowledgeflow.steps.Clusterer",
+			"properties" : {
+				"clusterer" : {
+					"type" : "optionHandler",
+					"class" : "weka.clusterers.EM",
+					"options" : "-I 100 -N 3 -X 10 -max -1 -ll-cv 1.0E-6 -ll-iter 1.0E-6 -M 1.0E-6 -K 10 -num-slots 1 -S 100"
+				},
+				"loadClustererFileName" : "",
+				"name" : "EM"
+			},
+			"connections" : {
+				"batchClusterer" : [
+					"ClustererPerformanceEvaluator3222"
+				]
+			},
+			"coordinates" : "401,801"
+		},
+		{
+			"class" : "weka.knowledgeflow.steps.Clusterer",
+			"properties" : {
+				"clusterer" : {
+					"type" : "optionHandler",
+					"class" : "weka.clusterers.EM",
+					"options" : "-I 100 -N -1 -X 10 -max -1 -ll-cv 1.0E-6 -ll-iter 1.0E-6 -M 1.0E-6 -K 10 -num-slots 1 -S 100"
+				},
+				"loadClustererFileName" : "",
+				"name" : "EM2"
+			},
+			"connections" : {
+				"batchClusterer" : [
+					"ClustererPerformanceEvaluator3223"
+				]
+			},
+			"coordinates" : "434,663"
+		},
+		{
+			"class" : "weka.knowledgeflow.steps.ClustererPerformanceEvaluator",
+			"properties" : {
+				"name" : "ClustererPerformanceEvaluator3222"
+			},
+			"connections" : {
+				"text" : [
+					"TextViewer3222"
+				]
+			},
+			"coordinates" : "685,798"
+		},
+		{
+			"class" : "weka.knowledgeflow.steps.TextViewer",
+			"properties" : {
+				"name" : "TextViewer3222"
+			},
+			"connections" : {
+			},
+			"coordinates" : "898,798"
+		},
+		{
+			"class" : "weka.knowledgeflow.steps.ClustererPerformanceEvaluator",
+			"properties" : {
+				"name" : "ClustererPerformanceEvaluator3223"
+			},
+			"connections" : {
+				"text" : [
+					"TextViewer3223"
+				]
+			},
+			"coordinates" : "670,662"
+		},
+		{
+			"class" : "weka.knowledgeflow.steps.TextViewer",
+			"properties" : {
+				"name" : "TextViewer3223"
+			},
+			"connections" : {
+			},
+			"coordinates" : "886,661"
+		},
+		{
+			"class" : "weka.knowledgeflow.steps.Clusterer",
+			"properties" : {
+				"clusterer" : {
+					"type" : "optionHandler",
+					"class" : "weka.clusterers.Cobweb",
+					"options" : "-A 0.6 -C 0.0028209479177387815 -S 42"
+				},
+				"loadClustererFileName" : "",
+				"name" : "Cobweb"
+			},
+			"connections" : {
+				"graph" : [
+					"GraphViewer"
+				]
+			},
+			"coordinates" : "257,992"
+		},
+		{
+			"class" : "weka.knowledgeflow.steps.GraphViewer",
+			"properties" : {
+				"name" : "GraphViewer"
+			},
+			"connections" : {
+			},
+			"coordinates" : "402,989"
+		},
+		{
+			"class" : "weka.knowledgeflow.steps.Note",
+			"properties" : {
+				"name" : "Note2",
+				"noteText" : "Q1. Clustered Instances‚n0      100 ( 67%)‚n1       50 ( 33%)"
+			},
+			"connections" : {
+			},
+			"coordinates" : "951,37"
+		},
+		{
+			"class" : "weka.knowledgeflow.steps.Note",
+			"properties" : {
+				"name" : "Note22",
+				"noteText" : "Q2. Clustered Instances‚n0       50 ( 33%)‚n1       50 ( 33%)‚n2       50 ( 33%)"
+			},
+			"connections" : {
+			},
+			"coordinates" : "959,173"
+		},
+		{
+			"class" : "weka.knowledgeflow.steps.Note",
+			"properties" : {
+				"name" : "Note222",
+				"noteText" : "Q2~3. numClusters = 3"
+			},
+			"connections" : {
+			},
+			"coordinates" : "501,142"
+		},
+		{
+			"class" : "weka.knowledgeflow.steps.Note",
+			"properties" : {
+				"name" : "Note2222",
+				"noteText" : "Q4. numClusters = 3 (REMOVE CLASS)"
+			},
+			"connections" : {
+			},
+			"coordinates" : "459,268"
+		},
+		{
+			"class" : "weka.knowledgeflow.steps.Note",
+			"properties" : {
+				"name" : "Note2223",
+				"noteText" : "Q1"
+			},
+			"connections" : {
+			},
+			"coordinates" : "500,29"
+		},
+		{
+			"class" : "weka.knowledgeflow.steps.Note",
+			"properties" : {
+				"name" : "Note2224",
+				"noteText" : "Q9 ‚nKM Clustered Instances‚n0       61 ( 41%)‚n1       50 ( 33%)‚n2       39 ( 26%)"
+			},
+			"connections" : {
+			},
+			"coordinates" : "1051,288"
+		},
+		{
+			"class" : "weka.knowledgeflow.steps.Note",
+			"properties" : {
+				"name" : "Note22222",
+				"noteText" : "Q5"
+			},
+			"connections" : {
+			},
+			"coordinates" : "500,391"
+		},
+		{
+			"class" : "weka.knowledgeflow.steps.Note",
+			"properties" : {
+				"name" : "Note22242",
+				"noteText" : "Q5‚nClustered Instances‚n0      100 ( 67%)‚n1       50 ( 33%)‚n"
+			},
+			"connections" : {
+			},
+			"coordinates" : "959,397"
+		},
+		{
+			"class" : "weka.knowledgeflow.steps.Note",
+			"properties" : {
+				"name" : "Note22223",
+				"noteText" : "Q6. min/max numClusters = all 3 (REMOVE CLASS)"
+			},
+			"connections" : {
+			},
+			"coordinates" : "476,497"
+		},
+		{
+			"class" : "weka.knowledgeflow.steps.Note",
+			"properties" : {
+				"name" : "Note22243",
+				"noteText" : "Q9 ‚nXM Clustered Instances‚n0       52 ( 35%)‚n1       48 ( 32%)‚n2       50 ( 33%)"
+			},
+			"connections" : {
+			},
+			"coordinates" : "1055,514"
+		},
+		{
+			"class" : "weka.knowledgeflow.steps.Note",
+			"properties" : {
+				"name" : "Note222222",
+				"noteText" : "Q7"
+			},
+			"connections" : {
+			},
+			"coordinates" : "495,661"
+		},
+		{
+			"class" : "weka.knowledgeflow.steps.Note",
+			"properties" : {
+				"name" : "Note222432",
+				"noteText" : "Q9 ‚nEM Clustered Instances‚n0       64 ( 43%)‚n1       50 ( 33%)‚n2       36 ( 24%)"
+			},
+			"connections" : {
+			},
+			"coordinates" : "1058,792"
+		},
+		{
+			"class" : "weka.knowledgeflow.steps.Note",
+			"properties" : {
+				"name" : "Note2222222",
+				"noteText" : "Q 8 numClusters=3 (remove class)"
+			},
+			"connections" : {
+			},
+			"coordinates" : "455,795"
+		},
+		{
+			"class" : "weka.knowledgeflow.steps.Note",
+			"properties" : {
+				"name" : "Note22222222",
+				"noteText" : "Q 10"
+			},
+			"connections" : {
+			},
+			"coordinates" : "425,897"
+		},
+		{
+			"class" : "weka.knowledgeflow.steps.Note",
+			"properties" : {
+				"name" : "Note222433",
+				"noteText" : "Q7‚nClustered Instances‚n0       28 ( 19%)‚n1       35 ( 23%)‚n2       42 ( 28%)‚n3       22 ( 15%)‚n4       23 ( 15%)"
+			},
+			"connections" : {
+			},
+			"coordinates" : "966,648"
+		},
+		{
+			"class" : "weka.knowledgeflow.steps.Note",
+			"properties" : {
+				"name" : "Note222222222",
+				"noteText" : "Q 11 : leaf 3 ea <- activity 0.6~0.7"
+			},
+			"connections" : {
+			},
+			"coordinates" : "470,1023"
+		},
+		{
+			"class" : "weka.knowledgeflow.steps.Clusterer",
+			"properties" : {
+				"clusterer" : {
+					"type" : "optionHandler",
+					"class" : "weka.clusterers.Cobweb",
+					"options" : "-A 1.0 -C 0.0028209479177387815 -S 42"
+				},
+				"loadClustererFileName" : "",
+				"name" : "Cobweb2"
+			},
+			"connections" : {
+				"batchClusterer" : [
+					"ClustererPerformanceEvaluator32222"
+				]
+			},
+			"coordinates" : "346,892"
+		},
+		{
+			"class" : "weka.knowledgeflow.steps.ClustererPerformanceEvaluator",
+			"properties" : {
+				"name" : "ClustererPerformanceEvaluator32222"
+			},
+			"connections" : {
+				"text" : [
+					"TextViewer32222"
+				]
+			},
+			"coordinates" : "680,892"
+		},
+		{
+			"class" : "weka.knowledgeflow.steps.TextViewer",
+			"properties" : {
+				"name" : "TextViewer32222"
+			},
+			"connections" : {
+			},
+			"coordinates" : "884,890"
+		},
+		{
+			"class" : "weka.knowledgeflow.steps.Note",
+			"properties" : {
+				"name" : "Note2224322",
+				"noteText" : "Q 10 Clustered Instances‚n1      100 ( 67%)‚n2       50 ( 33%)"
+			},
+			"connections" : {
+			},
+			"coordinates" : "972,905"
+		}
+	]
+}

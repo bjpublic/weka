@@ -1,0 +1,375 @@
+{
+	"flow_name" : "base week 3 class 3 lession 6",
+	"steps" : [
+		{
+			"class" : "weka.knowledgeflow.steps.Loader",
+			"properties" : {
+				"loader" : {
+					"type" : "loader",
+					"class" : "weka.core.converters.ArffLoader",
+					"filePath" : "D:/Weka-3-9/data/glass.arff",
+					"useRelativePath" : false
+				},
+				"name" : "ArffLoader"
+			},
+			"connections" : {
+				"dataSet" : [
+					"AddNoise",
+					"AddNoise2",
+					"AddNoise22",
+					"AddNoise222"
+				]
+			},
+			"coordinates" : "39,199"
+		},
+		{
+			"class" : "weka.knowledgeflow.steps.ClassAssigner",
+			"properties" : {
+				"classColumn" : "/last",
+				"name" : "ClassAssigner"
+			},
+			"connections" : {
+				"dataSet" : [
+					"CrossValidationFoldMaker"
+				]
+			},
+			"coordinates" : "475,78"
+		},
+		{
+			"class" : "weka.knowledgeflow.steps.Filter",
+			"properties" : {
+				"filter" : {
+					"type" : "optionHandler",
+					"class" : "weka.filters.unsupervised.attribute.AddNoise",
+					"options" : "-C last -P 0 -S 1"
+				},
+				"name" : "AddNoise"
+			},
+			"connections" : {
+				"dataSet" : [
+					"ClassAssigner",
+					"AttributeSummarizer"
+				]
+			},
+			"coordinates" : "353,77"
+		},
+		{
+			"class" : "weka.knowledgeflow.steps.CrossValidationFoldMaker",
+			"properties" : {
+				"name" : "CrossValidationFoldMaker",
+				"numFolds" : "10",
+				"preserveOrder" : false,
+				"seed" : "1"
+			},
+			"connections" : {
+				"trainingSet" : [
+					"IBk_0%"
+				],
+				"testSet" : [
+					"IBk_0%"
+				]
+			},
+			"coordinates" : "596,76"
+		},
+		{
+			"class" : "weka.knowledgeflow.steps.TextViewer",
+			"properties" : {
+				"name" : "EvalText"
+			},
+			"connections" : {
+			},
+			"coordinates" : "927,250"
+		},
+		{
+			"class" : "weka.knowledgeflow.steps.Note",
+			"properties" : {
+				"name" : "Note",
+				"noteText" : "crossValidate=true‚nkNN=20‚n"
+			},
+			"connections" : {
+			},
+			"coordinates" : "698,26"
+		},
+		{
+			"class" : "weka.knowledgeflow.steps.Classifier",
+			"properties" : {
+				"classifier" : {
+					"type" : "optionHandler",
+					"class" : "weka.classifiers.lazy.IBk",
+					"options" : "-K 20 -W 0 -X -A ‚"weka.core.neighboursearch.LinearNNSearch -A ‚‚‚"weka.core.EuclideanDistance -R first-last‚‚‚"‚""
+				},
+				"loadClassifierFileName" : "",
+				"name" : "IBk_0%",
+				"resetIncrementalClassifier" : false,
+				"updateIncrementalClassifier" : true
+			},
+			"connections" : {
+				"text" : [
+					"EvalText"
+				]
+			},
+			"coordinates" : "712,77"
+		},
+		{
+			"class" : "weka.knowledgeflow.steps.Note",
+			"properties" : {
+				"name" : "Note2",
+				"noteText" : "0%"
+			},
+			"connections" : {
+			},
+			"coordinates" : "381,53"
+		},
+		{
+			"class" : "weka.knowledgeflow.steps.Classifier",
+			"properties" : {
+				"classifier" : {
+					"type" : "optionHandler",
+					"class" : "weka.classifiers.lazy.IBk",
+					"options" : "-K 20 -W 0 -X -A ‚"weka.core.neighboursearch.LinearNNSearch -A ‚‚‚"weka.core.EuclideanDistance -R first-last‚‚‚"‚""
+				},
+				"loadClassifierFileName" : "",
+				"name" : "IBk_0%2",
+				"resetIncrementalClassifier" : false,
+				"updateIncrementalClassifier" : true
+			},
+			"connections" : {
+				"text" : [
+					"EvalText"
+				]
+			},
+			"coordinates" : "710,187"
+		},
+		{
+			"class" : "weka.knowledgeflow.steps.CrossValidationFoldMaker",
+			"properties" : {
+				"name" : "CrossValidationFoldMaker2",
+				"numFolds" : "10",
+				"preserveOrder" : false,
+				"seed" : "1"
+			},
+			"connections" : {
+				"trainingSet" : [
+					"IBk_0%2"
+				],
+				"testSet" : [
+					"IBk_0%2"
+				]
+			},
+			"coordinates" : "594,187"
+		},
+		{
+			"class" : "weka.knowledgeflow.steps.ClassAssigner",
+			"properties" : {
+				"classColumn" : "/last",
+				"name" : "ClassAssigner2"
+			},
+			"connections" : {
+				"dataSet" : [
+					"CrossValidationFoldMaker2"
+				]
+			},
+			"coordinates" : "473,189"
+		},
+		{
+			"class" : "weka.knowledgeflow.steps.Filter",
+			"properties" : {
+				"filter" : {
+					"type" : "optionHandler",
+					"class" : "weka.filters.unsupervised.attribute.AddNoise",
+					"options" : "-C last -P 10 -S 1"
+				},
+				"name" : "AddNoise2"
+			},
+			"connections" : {
+				"dataSet" : [
+					"ClassAssigner2",
+					"AttributeSummarizer"
+				]
+			},
+			"coordinates" : "351,188"
+		},
+		{
+			"class" : "weka.knowledgeflow.steps.Classifier",
+			"properties" : {
+				"classifier" : {
+					"type" : "optionHandler",
+					"class" : "weka.classifiers.lazy.IBk",
+					"options" : "-K 20 -W 0 -X -A ‚"weka.core.neighboursearch.LinearNNSearch -A ‚‚‚"weka.core.EuclideanDistance -R first-last‚‚‚"‚""
+				},
+				"loadClassifierFileName" : "",
+				"name" : "IBk_0%22",
+				"resetIncrementalClassifier" : false,
+				"updateIncrementalClassifier" : true
+			},
+			"connections" : {
+				"text" : [
+					"EvalText"
+				]
+			},
+			"coordinates" : "709,314"
+		},
+		{
+			"class" : "weka.knowledgeflow.steps.CrossValidationFoldMaker",
+			"properties" : {
+				"name" : "CrossValidationFoldMaker22",
+				"numFolds" : "10",
+				"preserveOrder" : false,
+				"seed" : "1"
+			},
+			"connections" : {
+				"trainingSet" : [
+					"IBk_0%22"
+				],
+				"testSet" : [
+					"IBk_0%22"
+				]
+			},
+			"coordinates" : "596,315"
+		},
+		{
+			"class" : "weka.knowledgeflow.steps.ClassAssigner",
+			"properties" : {
+				"classColumn" : "/last",
+				"name" : "ClassAssigner22"
+			},
+			"connections" : {
+				"dataSet" : [
+					"CrossValidationFoldMaker22"
+				]
+			},
+			"coordinates" : "475,317"
+		},
+		{
+			"class" : "weka.knowledgeflow.steps.Filter",
+			"properties" : {
+				"filter" : {
+					"type" : "optionHandler",
+					"class" : "weka.filters.unsupervised.attribute.AddNoise",
+					"options" : "-C last -P 20 -S 1"
+				},
+				"name" : "AddNoise22"
+			},
+			"connections" : {
+				"dataSet" : [
+					"ClassAssigner22",
+					"AttributeSummarizer"
+				]
+			},
+			"coordinates" : "353,316"
+		},
+		{
+			"class" : "weka.knowledgeflow.steps.Classifier",
+			"properties" : {
+				"classifier" : {
+					"type" : "optionHandler",
+					"class" : "weka.classifiers.lazy.IBk",
+					"options" : "-K 20 -W 0 -X -A ‚"weka.core.neighboursearch.LinearNNSearch -A ‚‚‚"weka.core.EuclideanDistance -R first-last‚‚‚"‚""
+				},
+				"loadClassifierFileName" : "",
+				"name" : "IBk_0%222",
+				"resetIncrementalClassifier" : false,
+				"updateIncrementalClassifier" : true
+			},
+			"connections" : {
+				"text" : [
+					"EvalText"
+				]
+			},
+			"coordinates" : "717,447"
+		},
+		{
+			"class" : "weka.knowledgeflow.steps.CrossValidationFoldMaker",
+			"properties" : {
+				"name" : "CrossValidationFoldMaker222",
+				"numFolds" : "10",
+				"preserveOrder" : false,
+				"seed" : "1"
+			},
+			"connections" : {
+				"trainingSet" : [
+					"IBk_0%222"
+				],
+				"testSet" : [
+					"IBk_0%222"
+				]
+			},
+			"coordinates" : "602,449"
+		},
+		{
+			"class" : "weka.knowledgeflow.steps.ClassAssigner",
+			"properties" : {
+				"classColumn" : "/last",
+				"name" : "ClassAssigner222"
+			},
+			"connections" : {
+				"dataSet" : [
+					"CrossValidationFoldMaker222"
+				]
+			},
+			"coordinates" : "481,451"
+		},
+		{
+			"class" : "weka.knowledgeflow.steps.Filter",
+			"properties" : {
+				"filter" : {
+					"type" : "optionHandler",
+					"class" : "weka.filters.unsupervised.attribute.AddNoise",
+					"options" : "-C last -P 30 -S 1"
+				},
+				"name" : "AddNoise222"
+			},
+			"connections" : {
+				"dataSet" : [
+					"ClassAssigner222",
+					"AttributeSummarizer"
+				]
+			},
+			"coordinates" : "359,450"
+		},
+		{
+			"class" : "weka.knowledgeflow.steps.Note",
+			"properties" : {
+				"name" : "Note22",
+				"noteText" : "10%"
+			},
+			"connections" : {
+			},
+			"coordinates" : "376,169"
+		},
+		{
+			"class" : "weka.knowledgeflow.steps.Note",
+			"properties" : {
+				"name" : "Note222",
+				"noteText" : "20%"
+			},
+			"connections" : {
+			},
+			"coordinates" : "377,294"
+		},
+		{
+			"class" : "weka.knowledgeflow.steps.Note",
+			"properties" : {
+				"name" : "Note2222",
+				"noteText" : "30%"
+			},
+			"connections" : {
+			},
+			"coordinates" : "379,420"
+		},
+		{
+			"class" : "weka.knowledgeflow.steps.AttributeSummarizer",
+			"properties" : {
+				"name" : "AttributeSummarizer",
+				"offscreenAdditionalOpts" : "",
+				"offscreenHeight" : "400",
+				"offscreenRendererName" : "Weka Chart Renderer",
+				"offscreenWidth" : "500",
+				"offscreenXAxis" : ""
+			},
+			"connections" : {
+			},
+			"coordinates" : "38,376"
+		}
+	]
+}
