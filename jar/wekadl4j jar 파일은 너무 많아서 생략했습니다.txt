@@ -1,0 +1,1 @@
+wekadeeplearning4j 패키지를 설치하면 jar 파일들이 생성되며 eclipse 에 add external jars 를 하면 됩니다
