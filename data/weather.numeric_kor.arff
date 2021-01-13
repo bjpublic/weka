@@ -1,0 +1,23 @@
+@relation 'weather-weka.filters.unsupervised.attribute.RenameAttribute-find([\\s\\S]+)-replace야외활동-Rlast-weka.filters.unsupervised.attribute.RenameNominalValues-Rlast-Nsunny:맑음,overcast:흐림,rainy:비-weka.filters.unsupervised.attribute.RenameNominalValues-R1-Nsunny:맑음,overcast:흐림,rainy:비'
+
+@attribute outlook {맑음,흐림,비}
+@attribute temperature numeric
+@attribute humidity numeric
+@attribute windy {TRUE,FALSE}
+@attribute 야외활동 {yes,no}
+
+@data
+맑음,85,85,FALSE,no
+맑음,80,90,TRUE,no
+흐림,83,86,FALSE,yes
+비,70,96,FALSE,yes
+비,68,80,FALSE,yes
+비,65,70,TRUE,no
+흐림,64,65,TRUE,yes
+맑음,72,95,FALSE,no
+맑음,69,70,FALSE,yes
+비,75,80,FALSE,yes
+맑음,75,70,TRUE,yes
+흐림,72,90,TRUE,yes
+흐림,81,75,FALSE,yes
+비,71,91,TRUE,no

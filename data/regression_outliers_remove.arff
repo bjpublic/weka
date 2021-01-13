@@ -1,0 +1,22 @@
+@relation regression_outliers
+
+@attribute year numeric
+@attribute 'phone calls' numeric
+
+@data
+50,0.44
+51,0.47
+52,0.47
+53,0.59
+54,0.66
+55,0.73
+56,0.81
+57,0.88
+58,1.06
+59,1.2
+60,1.35
+61,1.49
+62,1.61
+71,2.4
+72,2.7
+73,2.9

@@ -1,0 +1,23 @@
+@relation weather.symbolic-weka.filters.unsupervised.instance.NonSparseToSparse
+
+@attribute outlook {sunny,overcast,rainy}
+@attribute temperature {hot,mild,cool}
+@attribute humidity {high,normal}
+@attribute windy {TRUE,FALSE}
+@attribute play {yes,no}
+
+@data
+{3 FALSE,4 no}
+{4 no}
+{0 overcast,3 FALSE}
+{0 rainy,1 mild,3 FALSE}
+{0 rainy,1 cool,2 normal,3 FALSE}
+{0 rainy,1 cool,2 normal,4 no}
+{0 overcast,1 cool,2 normal}
+{1 mild,3 FALSE,4 no}
+{1 cool,2 normal,3 FALSE}
+{0 rainy,1 mild,2 normal,3 FALSE}
+{1 mild,2 normal}
+{0 overcast,1 mild}
+{0 overcast,2 normal,3 FALSE}
+{0 rainy,1 mild,4 no}
