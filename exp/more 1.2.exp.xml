@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!DOCTYPE object
+[
+   <!ELEMENT object (#PCDATA|object)*>
+   <!ATTLIST object name      CDATA #REQUIRED>
+   <!ATTLIST object class     CDATA #REQUIRED>
+   <!ATTLIST object primitive CDATA "no">
+   <!ATTLIST object array     CDATA "no">   <!-- the dimensions of the array; no=0, yes=1 -->
+   <!ATTLIST object null      CDATA "no">
+   <!ATTLIST object version   CDATA "3.9.3">
+]
+>
+
+<object class="weka.experiment.Experiment" name="__root__" version="3.9.3">
+   <object array="yes" class="weka.classifiers.Classifier" name="propertyArray">
+      <object class="weka.classifiers.trees.J48" name="0">
+         <object class="boolean" name="debug" primitive="yes">false</object>
+         <object array="yes" class="java.lang.String" name="options">
+            <object class="java.lang.String" name="0">-C</object>
+            <object class="java.lang.String" name="1">0.25</object>
+            <object class="java.lang.String" name="2">-M</object>
+            <object class="java.lang.String" name="3">2</object>
+         </object>
+      </object>
+      <object class="weka.classifiers.functions.SMO" name="1">
+         <object class="boolean" name="debug" primitive="yes">false</object>
+         <object array="yes" class="java.lang.String" name="options">
+            <object class="java.lang.String" name="0">-C</object>
+            <object class="java.lang.String" name="1">1.0</object>
+            <object class="java.lang.String" name="2">-L</object>
+            <object class="java.lang.String" name="3">0.001</object>
+            <object class="java.lang.String" name="4">-P</object>
+            <object class="java.lang.String" name="5">1.0E-12</object>
+            <object class="java.lang.String" name="6">-N</object>
+            <object class="java.lang.String" name="7">0</object>
+            <object class="java.lang.String" name="8">-V</object>
+            <object class="java.lang.String" name="9">-1</object>
+            <object class="java.lang.String" name="10">-W</object>
+            <object class="java.lang.String" name="11">1</object>
+            <object class="java.lang.String" name="12">-K</object>
+            <object class="java.lang.String" name="13">weka.classifiers.functions.supportVector.PolyKernel -E 1.0 -C 250007</object>
+            <object class="java.lang.String" name="14">-calibrator</object>
+            <object class="java.lang.String" name="15">weka.classifiers.functions.Logistic -R 1.0E-8 -M -1 -num-decimal-places 4</object>
+         </object>
+      </object>
+      <object class="weka.classifiers.rules.OneR" name="2">
+         <object class="boolean" name="debug" primitive="yes">false</object>
+         <object array="yes" class="java.lang.String" name="options">
+            <object class="java.lang.String" name="0">-B</object>
+            <object class="java.lang.String" name="1">6</object>
+         </object>
+      </object>
+      <object class="weka.classifiers.rules.ZeroR" name="3">
+         <object class="boolean" name="debug" primitive="yes">false</object>
+         <object array="yes" class="java.lang.String" name="options"/>
+      </object>
+      <object class="weka.classifiers.bayes.NaiveBayes" name="4">
+         <object class="boolean" name="debug" primitive="yes">false</object>
+         <object array="yes" class="java.lang.String" name="options"/>
+      </object>
+      <object class="weka.classifiers.lazy.IBk" name="5">
+         <object class="boolean" name="debug" primitive="yes">false</object>
+         <object array="yes" class="java.lang.String" name="options">
+            <object class="java.lang.String" name="0">-K</object>
+            <object class="java.lang.String" name="1">1</object>
+            <object class="java.lang.String" name="2">-W</object>
+            <object class="java.lang.String" name="3">0</object>
+            <object class="java.lang.String" name="4">-A</object>
+            <object class="java.lang.String" name="5">weka.core.neighboursearch.LinearNNSearch -A &quot;weka.core.EuclideanDistance -R first-last&quot;</object>
+         </object>
+      </object>
+      <object class="weka.classifiers.functions.Logistic" name="6">
+         <object class="boolean" name="debug" primitive="yes">false</object>
+         <object array="yes" class="java.lang.String" name="options">
+            <object class="java.lang.String" name="0">-R</object>
+            <object class="java.lang.String" name="1">1.0E-8</object>
+            <object class="java.lang.String" name="2">-M</object>
+            <object class="java.lang.String" name="3">-1</object>
+            <object class="java.lang.String" name="4">-num-decimal-places</object>
+            <object class="java.lang.String" name="5">4</object>
+         </object>
+      </object>
+      <object class="weka.classifiers.meta.AdaBoostM1" name="7">
+         <object class="boolean" name="debug" primitive="yes">false</object>
+         <object array="yes" class="java.lang.String" name="options">
+            <object class="java.lang.String" name="0">-P</object>
+            <object class="java.lang.String" name="1">100</object>
+            <object class="java.lang.String" name="2">-S</object>
+            <object class="java.lang.String" name="3">1</object>
+            <object class="java.lang.String" name="4">-I</object>
+            <object class="java.lang.String" name="5">10</object>
+            <object class="java.lang.String" name="6">-W</object>
+            <object class="java.lang.String" name="7">weka.classifiers.trees.DecisionStump</object>
+         </object>
+      </object>
+   </object>
+   <object class="javax.swing.DefaultListModel" name="datasets">
+      <object class="java.io.File" name="0">D:/Weka-3-9/data/iris.arff</object>
+      <object class="java.io.File" name="1">D:/Weka-3-9/data/breast-cancer.arff</object>
+      <object class="java.io.File" name="2">D:/Weka-3-9/data/credit-g.arff</object>
+      <object class="java.io.File" name="3">D:/Weka-3-9/data/diabetes.arff</object>
+      <object class="java.io.File" name="4">D:/Weka-3-9/data/glass.arff</object>
+      <object class="java.io.File" name="5">D:/Weka-3-9/data/ionosphere.arff</object>
+   </object>
+   <object class="int" name="runUpper" primitive="yes">10</object>
+   <object class="weka.experiment.CrossValidationResultProducer" name="resultProducer">
+      <object array="yes" class="java.lang.String" name="options">
+         <object class="java.lang.String" name="0">-X</object>
+         <object class="java.lang.String" name="1">10</object>
+         <object class="java.lang.String" name="2">-O</object>
+         <object class="java.lang.String" name="3">splitEvalutorOut.zip</object>
+         <object class="java.lang.String" name="4">-W</object>
+         <object class="java.lang.String" name="5">weka.experiment.ClassifierSplitEvaluator</object>
+         <object class="java.lang.String" name="6">--</object>
+         <object class="java.lang.String" name="7">-W</object>
+         <object class="java.lang.String" name="8">weka.classifiers.rules.ZeroR</object>
+         <object class="java.lang.String" name="9">-I</object>
+         <object class="java.lang.String" name="10">0</object>
+         <object class="java.lang.String" name="11">-C</object>
+         <object class="java.lang.String" name="12">1</object>
+         <object class="java.lang.String" name="13">--</object>
+      </object>
+   </object>
+   <object class="boolean" name="usePropertyIterator" primitive="yes">true</object>
+   <object array="yes" class="weka.experiment.PropertyNode" name="propertyPath">
+      <object array="no" class="weka.experiment.PropertyNode" name="0" primitive="no">
+         <object class="weka.experiment.ClassifierSplitEvaluator" name="value">
+            <object array="yes" class="java.lang.String" name="options">
+               <object class="java.lang.String" name="0">-W</object>
+               <object class="java.lang.String" name="1">weka.classifiers.rules.ZeroR</object>
+               <object class="java.lang.String" name="2">-I</object>
+               <object class="java.lang.String" name="3">0</object>
+               <object class="java.lang.String" name="4">-C</object>
+               <object class="java.lang.String" name="5">1</object>
+               <object class="java.lang.String" name="6">--</object>
+            </object>
+         </object>
+         <object class="java.lang.String" name="parentClass">weka.experiment.CrossValidationResultProducer</object>
+         <object class="java.lang.String" name="property">splitEvaluator</object>
+      </object>
+      <object array="no" class="weka.experiment.PropertyNode" name="1" primitive="no">
+         <object class="weka.classifiers.rules.ZeroR" name="value">
+            <object class="boolean" name="debug" primitive="yes">false</object>
+            <object array="yes" class="java.lang.String" name="options"/>
+         </object>
+         <object class="java.lang.String" name="parentClass">weka.experiment.ClassifierSplitEvaluator</object>
+         <object class="java.lang.String" name="property">classifier</object>
+      </object>
+   </object>
+   <object class="java.lang.String" name="notes"/>
+   <object class="weka.experiment.InstancesResultListener" name="resultListener">
+      <object array="yes" class="java.lang.String" name="options">
+         <object class="java.lang.String" name="0">-O</object>
+         <object class="java.lang.String" name="1">weka_experiment1015164448046819116.arff</object>
+      </object>
+      <object class="java.io.File" name="outputFile">C:/Users/ADMINI~1/AppData/Local/Temp/weka_experiment1015164448046819116.arff</object>
+   </object>
+   <object class="boolean" name="advanceDataSetFirst" primitive="yes">true</object>
+   <object class="int" name="runLower" primitive="yes">1</object>
+   <object class="java.lang.Boolean" name="classFirst">false</object>
+</object>
